@@ -43,6 +43,8 @@ app.locals.appData = {appName: "FitTrack"}
 const mainRoutes = require("./routes/main")
 app.use('/', mainRoutes)
 
+const exerciseRoutes = require("./routes/exercises")
+app.use('/exercises', exerciseRoutes)
 
 // Start the web app listening
 app.listen(port, () => console.log(`Node app listening on port ${port}!`))

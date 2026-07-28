@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Exercises | <%= appData.appName %></title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
+  </head>
+
+  <body>
+    <h1>Exercise Library</h1>
+
+    <p>
+      Browse the exercises currently available in FitTrack.
+    </p>
+
+    <ul>
+      <% availableExercises.forEach(function(exercise) { %>
+        <li>
+          <strong><%= exercise.name %></strong><br>
+          Muscle group: <%= exercise.muscle_group %><br>
+          Equipment: <%= exercise.equipment %><br>
+          Difficulty: <%= exercise.difficulty %><br>
+          Description: <%= exercise.description %>
+        </li>
+        <br>
+      <% }) %>
+    </ul>
+
+    <p>
+      <a href="/">Return to homepage</a>
+    </p>
+  </body>
+</html>
