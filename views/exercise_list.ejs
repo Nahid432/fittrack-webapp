@@ -11,10 +11,10 @@
     <p>
       Browse the exercises currently available in FitTrack.
     </p>
-
+    <!-- Search form -->
     <form method="GET" action="/exercises/list">
       <label>Search</label>
-      <input type="text" name="exercise_name" value="<%= exerciseName %>" />
+      <input type="text" name="exercise_name" value="<%= exerciseName %>"/>
       <select name="muscle_group">
         <option value="">All muscles</option>
         <option value="Chest">Chest</option>
@@ -28,22 +28,24 @@
       <button type="submit">Search</button>
     
     </form>
+    <!--No results message-->
     <% if (availableExercises.length === 0) { %>
        <p>No exercises match your search.</p>
     <% } 
       else { %>
-      <ul>
-        <% availableExercises.forEach(function(exercise) { %>
-          <li>
-            <strong><%= exercise.name %></strong><br>
-            Muscle group: <%= exercise.muscle_group %><br>
-            Equipment: <%= exercise.equipment %><br>
-            Difficulty: <%= exercise.difficulty %><br>
-            Description: <%= exercise.description %>
-          </li>
-          <br>
-        <% }) %>
-      </ul>
+        <!--Exercise results-->
+        <ul>
+          <% availableExercises.forEach(function(exercise) { %>
+            <li>
+              <strong><%= exercise.name %></strong><br>
+              Muscle group: <%= exercise.muscle_group %><br>
+              Equipment: <%= exercise.equipment %><br>
+              Difficulty: <%= exercise.difficulty %><br>
+              Description: <%= exercise.description %>
+            </li>
+            <br>
+          <% }) %>
+        </ul>
     <% } %>
 
     <p>

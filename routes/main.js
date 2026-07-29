@@ -1,14 +1,13 @@
-// Import Express module
+//Import Express
 const express = require("express")
 
-// Create router object for handling main site routes
+//Create router object for handling main site routes
 const router = express.Router()
 
-// Display home page
+//Display home page
 router.get('/',function(req, res, next){
     res.render('index.ejs')
 })
 
-
-// Export router object
+//Export router object
 module.exports = router
