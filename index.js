@@ -2,6 +2,8 @@
 const express = require ('express')
 const ejs = require('ejs')
 
+const session = require("express-session")
+
 //Import mysql module
 const mysql = require('mysql2')
 
@@ -14,6 +16,12 @@ app.set('view engine', 'ejs')
 
 //Set up the body parser for form data
 app.use(express.urlencoded({ extended: true }))
+
+app.use(session({
+    secret: "fittracksecret",
+    resave: false,
+    saveUninitialized: false
+}))
 
 //Set up public folder (for css and static js)
 app.use(express.static(__dirname + '/public'))

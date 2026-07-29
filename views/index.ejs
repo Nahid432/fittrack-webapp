@@ -12,6 +12,12 @@
     </p>
     <p>
       <a href="/exercises/list">Browse exercises</a>
-    </p>
+      <% if (loggedInUser) { %>
+          <span>Welcome, <%= loggedInUser.username %></span>
+          <a href="/users/logout">Logout</a>
+      <% } else { %>
+          <a href="/users/login">Login</a>
+      <% } %>
+      </p>
   </body>
 </html>

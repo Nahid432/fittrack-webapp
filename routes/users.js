@@ -39,15 +39,30 @@ router.post("/loggedin", function (req,res, next) {
         //Compare hashed passwords
         bcrypt.compare(password, hashedPassword, function (err, passwordMatches) {
             if (err) {
-              return next(err)
+                return next(err)
             }
 
             if (passwordMatches) {
-              return res.send("Logged in successfully")
+                req.session.user = {
+                    id: user[0].id,
+                    username: user[0].username
+                }
+              
+                return res.redirect("/")
             }
 
             res.send("Incorrect username or password")
         })
+    })
+})
+
+router.get("/logout", function (req, res) {
+    req.session.destroy(function(err) {
+      if (err) {
+          return res.redirect("/")
+      }
+
+      res.redirect("/")
     })
 })
 

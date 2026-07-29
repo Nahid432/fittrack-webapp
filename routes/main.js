@@ -6,7 +6,9 @@ const router = express.Router()
 
 //Display home page
 router.get('/',function(req, res, next){
-    res.render('index.ejs')
+    res.render('index.ejs', {
+        loggedInUser: req.session.user
+    })
 })
 
 //Export router object
