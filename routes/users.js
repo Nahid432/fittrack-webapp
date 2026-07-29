@@ -11,6 +11,11 @@ router.get("/register", (req, res) => {
     res.render("register");
 });
 
+//Display the login page
+router.get("/login", (req, res) => {
+    res.render("login")
+})
+
 //Handle registration form submission
 router.post("/registered",
   //Validate registration form input 
