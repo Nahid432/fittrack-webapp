@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Create Workout | <%= appData.appName %></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+
+  <body>
+    <h1>Create Workout</h1>
+    <!--Form for creating a new workout-->
+    <form method="POST" action="/workouts/created">
+
+      <label>Workout Name</label>
+
+      <input type="text"
+             name="workout_name"
+             required
+      >
+
+      <button>Create Workout</button>
+    </form>
+  </body>
+</html>

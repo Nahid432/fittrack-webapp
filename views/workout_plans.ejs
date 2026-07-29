@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Workout Plans | <%= appData.appName %></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+
+  <body>
+    <h1>My Workout Plans</h1>
+    <a href="/workouts/create">Create Workout</a>
+
+    <!--Display a message if the user has not created any workouts-->
+    <% if (workouts.length === 0) { %> 
+
+        <p>No workouts created yet.</p>
+
+    <% } else { %>
+
+        <!--Display each workout belonging to the logged-in user-->
+        <% workouts.forEach(function(workout) { %>
+
+            <p><%= workout.workout_name %></p>
+
+        <% }) %>
+    <% } %>
+
+  </body>
+</html>

@@ -26,12 +26,13 @@ CREATE TABLE IF NOT EXISTS workouts (
   user_id INT NOT NULL,
   workout_name VARCHAR(100) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  
+  UNIQUE (user_id, workout_name),
   FOREIGN KEY (user_id) REFERENCES users(id)
       ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS workout_exercises (
-  id INT AUTO_INCREMENT PRIMARY KEY,
   workout_id INT NOT NULL,
   exercise_id INT NOT NULL,
   set_count INT NOT NULL,
