@@ -13,7 +13,7 @@ router.get("/register", (req, res) => {
 
 //Handle registration form submission
 router.post("/registered",
-  //validate registration form input 
+  //Validate registration form input 
   [
     body("first").notEmpty(),
     body("last").notEmpty(),
@@ -36,34 +36,46 @@ function (req, res, next) {
     const email = req.body.email
     const plainPassword = req.body.password
 
-    //Number of rounds used to generate the password hash
-    const saltRounds = 10
+    //Checks for duplicate user entry
+    const checkUserQuery = "SELECT id FROM users WHERE username = ? OR email = ?"
 
-    //Hash the password before storing into database
-    bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
-        if(err) {
+    db.query(checkUserQuery, [username, email], function(err, results) {
+        if (err) {
             return next(err)
         }
+        
+        if (results.length > 0) {
+          return res.send("Username or Email already exists")
+        }
 
-        //Insert the new user into database
-        const sqlQuery = "INSERT INTO users (username, first_name, last_name, email, hashed_Password) VALUES (?, ?, ?, ?, ?)"
+        //Number of rounds used to generate the password hash
+        const saltRounds = 10
 
-        const queryValues = [
-          username,
-          firstName,
-          lastName,
-          email,
-          hashedPassword
-        ]
-
-        db.query(sqlQuery, queryValues, function(err, result) {
-            if (err) {
+        //Hash the password before storing into database
+        bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
+            if(err) {
                 return next(err)
             }
-            res.send("Registered successfully")
+
+            //Insert the new user into database
+            const sqlQuery = "INSERT INTO users (username, first_name, last_name, email, hashed_Password) VALUES (?, ?, ?, ?, ?)"
+
+            const queryValues = [
+              username,
+              firstName,
+              lastName,
+              email,
+              hashedPassword
+            ]
+
+            db.query(sqlQuery, queryValues, function(err, result) {
+                if (err) {
+                    return next(err)
+                }
+                res.send("Registered successfully")
+            })
         })
-    })
-    
+    })  
 })
 
 //Export the router
