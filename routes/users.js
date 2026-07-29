@@ -1,6 +1,7 @@
 //Import required modules
 const express = require("express")
 const bcrypt = require("bcrypt")
+const {body, validationResult} = require("express-validator")
 
 //Create a router
 const router = express.Router()
@@ -11,7 +12,22 @@ router.get("/register", (req, res) => {
 });
 
 //Handle registration form submission
-router.post("/registered", (req, res, next) => {
+router.post("/registered",
+  //validate registration form input 
+  [
+    body("first").notEmpty(),
+    body("last").notEmpty(),
+    body("username").notEmpty(),
+    body("email").isEmail(),
+    body("password").notEmpty()
+  ], 
+function (req, res, next) {
+
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        return res.redirect("/users/register")
+    }
 
     //Retrieve values submitted through form
     const firstName = req.body.first
