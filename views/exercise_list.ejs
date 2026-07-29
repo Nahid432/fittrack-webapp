@@ -12,18 +12,39 @@
       Browse the exercises currently available in FitTrack.
     </p>
 
-    <ul>
-      <% availableExercises.forEach(function(exercise) { %>
-        <li>
-          <strong><%= exercise.name %></strong><br>
-          Muscle group: <%= exercise.muscle_group %><br>
-          Equipment: <%= exercise.equipment %><br>
-          Difficulty: <%= exercise.difficulty %><br>
-          Description: <%= exercise.description %>
-        </li>
-        <br>
-      <% }) %>
-    </ul>
+    <form method="GET" action="/exercises/list">
+      <label>Search</label>
+      <input type="text" name="exercise_name" value="<%= exerciseName %>" />
+      <select name="muscle_group">
+        <option value="">All muscles</option>
+        <option value="Chest">Chest</option>
+        <option value="Back">Back</option>
+        <option value="Legs">Legs</option>
+        <option value="Shoulders">Shoulders</option>
+        <option value="Arms">Arms</option>
+        <option value="Core">Core</option>
+      </select>
+
+      <button type="submit">Search</button>
+    
+    </form>
+    <% if (availableExercises.length === 0) { %>
+       <p>No exercises match your search.</p>
+    <% } 
+      else { %>
+      <ul>
+        <% availableExercises.forEach(function(exercise) { %>
+          <li>
+            <strong><%= exercise.name %></strong><br>
+            Muscle group: <%= exercise.muscle_group %><br>
+            Equipment: <%= exercise.equipment %><br>
+            Difficulty: <%= exercise.difficulty %><br>
+            Description: <%= exercise.description %>
+          </li>
+          <br>
+        <% }) %>
+      </ul>
+    <% } %>
 
     <p>
       <a href="/">Return to homepage</a>
