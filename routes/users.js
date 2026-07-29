@@ -16,6 +16,41 @@ router.get("/login", (req, res) => {
     res.render("login")
 })
 
+router.post("/loggedin", function (req,res, next) {
+    //retrieve login details
+    const username = req.body.username
+    const password = req.body.password
+
+  // Find the user in the database
+    const sqlQuery = "SELECT id, username, hashed_Password FROM users WHERE username = ?"
+
+    db.query(sqlQuery, [username], function (err, user) {
+        if (err) {
+          return next(err)
+        }
+
+        //if no matching username was found
+        if (user.length === 0) {
+            return res.send("Incorrect username or password")
+        }
+
+        const hashedPassword = user[0].hashed_Password
+
+        //Compare hashed passwords
+        bcrypt.compare(password, hashedPassword, function (err, passwordMatches) {
+            if (err) {
+              return next(err)
+            }
+
+            if (passwordMatches) {
+              return res.send("Logged in successfully")
+            }
+
+            res.send("Incorrect username or password")
+        })
+    })
+})
+
 //Handle registration form submission
 router.post("/registered",
   //Validate registration form input 
