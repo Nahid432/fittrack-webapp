@@ -17,25 +17,25 @@ router.get('/list', function(req,res, next) {
 
   //Search by exercise name
   if (name !== "") {
-    sqlQuery += " AND name LIKE ?"
-    queryValues.push("%" + name + "%")
+      sqlQuery += " AND name LIKE ?"
+      queryValues.push("%" + name + "%")
   }
 
   //Filter by muscle group
   if (muscleGroup !== "") {
-    sqlQuery += " AND muscle_group = ?"
-    queryValues.push(muscleGroup)
+      sqlQuery += " AND muscle_group = ?"
+      queryValues.push(muscleGroup)
   }
 
   db.query(sqlQuery, queryValues, function(err, results) {
-    if (err) {
-        return next(err)
-    }
+      if (err) {
+          return next(err)
+      }
 
-    res.render("exercise_list.ejs", {
-      availableExercises: results,
-      exerciseName: name,
-    })
+      res.render("exercise_list.ejs", {
+        availableExercises: results,
+        exerciseName: name,
+      })
   })
 })
 
