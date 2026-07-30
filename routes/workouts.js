@@ -117,17 +117,30 @@ router.post("/:workoutId/exercises/:exerciseId/add", requireLogin, function(req,
         if (workouts.length === 0) {
             return res.status(404).send("Workout not found")
         }
+        
+        // Check if exercise is already in the workout
+        const checkQuery ="SELECT * FROM workout_exercises WHERE workout_id = ? AND exercise_id = ?"
 
-        //Add the exercise to the workout
-        const insertQuery ="INSERT INTO workout_exercises (workout_id, exercise_id) VALUES (?, ?)"
+        db.query(checkQuery, [workoutId, exerciseId], function(err, results) {
 
-        db.query(insertQuery, [workoutId, exerciseId], function(err) {
             if (err) {
                 return next(err)
             }
 
-            res.redirect("/workouts/" + workoutId)
-        })
+            if (results.length > 0) {
+                return res.send("Exercise already added")
+            }
+            //Add the exercise to the workout
+            const insertQuery ="INSERT INTO workout_exercises (workout_id, exercise_id) VALUES (?, ?)"
+
+            db.query(insertQuery, [workoutId, exerciseId], function(err) {
+                if (err) {
+                    return next(err)
+                }
+
+                res.redirect("/workouts/" + workoutId)
+            })
+        })    
     })
 })
 
