@@ -60,5 +60,8 @@ app.use('/users', usersRoutes)
 const workoutRoutes = require('./routes/workouts')
 app.use('/workouts', workoutRoutes)
 
+const apiRouter = require("./routes/api")
+app.use("/api", apiRouter)
+
 // Start the web app listening
 app.listen(port, () => console.log(`Node app listening on port ${port}!`))
