@@ -11,5 +11,9 @@ router.get('/',function(req, res, next){
     })
 })
 
+router.get("/about", function(req, res) {
+    res.render("about.ejs")
+})
+
 //Export router object
 module.exports = router

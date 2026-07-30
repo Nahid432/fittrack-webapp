@@ -14,8 +14,7 @@ router.get('/exercises', function (req, res, next) {
 
         //Return results as a JSON object
         if (err) {
-            res.json(err)
-            next(err)
+           return next(err)
         }
         else {
             res.json(result)
