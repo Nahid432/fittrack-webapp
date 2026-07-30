@@ -35,8 +35,10 @@ CREATE TABLE IF NOT EXISTS workouts (
 CREATE TABLE IF NOT EXISTS workout_exercises (
   workout_id INT NOT NULL,
   exercise_id INT NOT NULL,
-  set_count INT NOT NULL,
-  rep_count INT NOT NULL,
+  set_count INT NOT NULL DEFAULT 3,
+  rep_count INT NOT NULL DEFAULT 8,
+
+  PRIMARY KEY (workout_id, exercise_id),
   FOREIGN KEY (workout_id) REFERENCES workouts(id)
       ON DELETE CASCADE,
   FOREIGN KEY (exercise_id) REFERENCES exercises(id)
