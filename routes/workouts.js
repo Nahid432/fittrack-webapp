@@ -63,7 +63,113 @@ router.post("/created", requireLogin, function (req, res, next) {
         })
       })
 
+})
 
+router.get("/:id/add", requireLogin, function(req, res, next) {
+
+    const workoutId = req.params.id
+    const userId = req.session.user.id
+
+    const workoutQuery = "SELECT * FROM workouts WHERE id = ? AND user_id = ?"
+
+    db.query(workoutQuery, [workoutId, userId], function(err, workouts) {
+
+        if (err) {
+            return next(err)
+        }
+
+        if (workouts.length === 0) {
+            return res.status(404).send("Workout not found")
+        }
+
+        const exerciseQuery = "SELECT * FROM exercises ORDER BY name ASC"
+        
+
+        db.query(exerciseQuery, function(err, exercises) {
+
+            if (err) {
+                return next(err)
+            }
+
+            res.render("add_workout_exercise.ejs", {
+                workout: workouts[0],
+                exercises: exercises
+            })
+        })
+    })
+})
+
+router.post("/:workoutId/exercises/:exerciseId/add", requireLogin, function(req, res, next) { 
+
+    const workoutId = req.params.workoutId
+    const exerciseId = req.params.exerciseId
+    const userId = req.session.user.id
+
+    //Check that the workout belongs to the logged-in user
+    const workoutQuery =
+        "SELECT id FROM workouts WHERE id = ? AND user_id = ?"
+
+    db.query(workoutQuery, [workoutId, userId], function(err, workouts) {
+        if (err) {
+            return next(err)
+        }
+
+        if (workouts.length === 0) {
+            return res.status(404).send("Workout not found")
+        }
+
+        //Add the exercise to the workout
+        const insertQuery ="INSERT INTO workout_exercises (workout_id, exercise_id) VALUES (?, ?)"
+
+        db.query(insertQuery, [workoutId, exerciseId], function(err) {
+            if (err) {
+                return next(err)
+            }
+
+            res.redirect("/workouts/" + workoutId)
+        })
+    })
+})
+
+router.get("/:id", requireLogin, function(req, res, next) {
+
+    const workoutId = req.params.id
+    const userId = req.session.user.id
+
+    const sqlQuery = "SELECT id, workout_name FROM workouts WHERE id = ? AND user_id = ?"
+
+    db.query(sqlQuery, [workoutId, userId], function(err, workouts) {
+        if (err) {
+            return next(err)
+        }
+
+        if (workouts.length === 0) {
+            return res.status(404).send("Workout not found")
+        }
+
+        const exerciseQuery = `
+            SELECT exercises.name,
+                   exercises.muscle_group,
+                   workout_exercises.set_count,
+                   workout_exercises.rep_count
+            FROM workout_exercises
+            JOIN exercises
+              ON workout_exercises.exercise_id = exercises.id
+            WHERE workout_exercises.workout_id = ?
+            ORDER BY exercises.name ASC
+        `
+
+        db.query(exerciseQuery, [workoutId], function(err, exercises) {
+            if (err) {
+                return next(err)
+            }
+
+            res.render("workout_details.ejs", {
+                workout: workouts[0],
+                exercises: exercises
+            })
+        })
+    })
 })
 
 module.exports = router

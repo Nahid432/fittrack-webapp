@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Create Workout | <%= appData.appName %></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+
+  <body>
+    <h1>Add Exercise to <%= workout.workout_name %></h1>
+
+    <% exercises.forEach(function(exercise) { %>
+
+        <div class="exercise-card">
+
+            <h3><%= exercise.name %></h3>
+
+            <p><%= exercise.description %></p>
+
+            <p><%= exercise.muscle_group %></p>
+
+            <form method="POST" action="/workouts/<%= workout.id %>/exercises/<%= exercise.id %>/add">
+
+                <button type="submit">
+                    Add
+                </button>
+
+            </form>
+
+        </div>
+
+        <hr>
+
+    <% }) %>
+  </body>
+</html>

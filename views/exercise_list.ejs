@@ -33,19 +33,22 @@
        <p>No exercises match your search.</p>
     <% } 
       else { %>
-        <!--Exercise results-->
-        <ul>
+          <!--Exercise results-->
+
           <% availableExercises.forEach(function(exercise) { %>
-            <li>
-              <strong><%= exercise.name %></strong><br>
-              Muscle group: <%= exercise.muscle_group %><br>
-              Equipment: <%= exercise.equipment %><br>
-              Difficulty: <%= exercise.difficulty %><br>
-              Description: <%= exercise.description %>
-            </li>
-            <br>
+
+              <div class="exercise-card">
+
+                  <h3><%= exercise.name %></h3>
+
+                  <p><%= exercise.description %></p>
+
+                  <p><strong>Muscle:</strong> <%= exercise.muscle_group %></p>
+
+              </div>
+
           <% }) %>
-        </ul>
+
     <% } %>
 
     <p>

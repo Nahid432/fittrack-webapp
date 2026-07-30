@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= workout.workout_name %> | <%= appData.appName %></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+
+  <body>
+    <h1><%= workout.workout_name %></h1>
+    
+
+    <% if (exercises.length === 0) { %>
+
+    <p>No exercises added yet.</p>
+
+    <% } else { %>
+
+        <% exercises.forEach(function(exercise) { %>
+            
+            <div class="exercise-card">
+                <h3><%= exercise.name %></h3>
+                <p><%= exercise.muscle_group %></p>
+                <p>Sets: <%= exercise.set_count %></p>
+                <p>Reps: <%= exercise.rep_count %></p>
+            </div>
+
+        <% }) %>
+
+    <% } %>
+    <a href="/workouts/<%= workout.id %>/add">
+        Add Exercises
+    </a>
+    <p>
+        <a href="/workouts">Return to workout plans</a>
+    </p>
+
+  </body>
+</html>

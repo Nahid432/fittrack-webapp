@@ -18,8 +18,13 @@
 
         <!--Display each workout belonging to the logged-in user-->
         <% workouts.forEach(function(workout) { %>
-
-            <p><%= workout.workout_name %></p>
+            
+            <p>
+                <a href="/workouts/<%= workout.id %>">
+                    <%= workout.workout_name %>
+                </a>
+                
+            </p>
 
         <% }) %>
     <% } %>
