@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Meal Search | <%= appData.appName %></title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+    <header class="top-banner">
+        <a class="site-name" href="/">FitTrack</a>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/exercises/list">Exercises</a>
+            <a href="/workouts">Workout Plans</a>
+            <a href="/external/meals">Meal Ideas</a>
+            <a href="/about">About</a>
+            <a href="/users/login">Login</a>
+        </nav>
+    </header>
+
+    <h1>Meal Search</h1>
+
+    <form action="/external/meals">
+
+        <input
+            type="text"
+            name="search_text"
+            value="<%= search %>"
+            placeholder="Search for a meal"
+        >
+
+        <button>Search</button>
+
+    </form>
+
+    <% if(mealData){ %>
+
+        <% mealData.forEach(function(meal){ %>
+
+            <div class="exercise-card">
+
+                <h2><%= meal.strMeal %></h2>
+
+                <p>
+                    <strong>Category:</strong>
+                    <%= meal.strCategory %>
+                </p>
+
+                <p>
+                    <strong>Cuisine:</strong>
+                    <%= meal.strArea %>
+                </p>
+
+            </div>
+
+        <% }) %>
+
+    <% } %>
+
+  </body>
+</html>

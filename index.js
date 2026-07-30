@@ -63,5 +63,8 @@ app.use('/workouts', workoutRoutes)
 const apiRouter = require("./routes/api")
 app.use("/api", apiRouter)
 
+const externalApiRouter = require("./routes/external_api")
+app.use("/external", externalApiRouter)
+
 // Start the web app listening
 app.listen(port, () => console.log(`Node app listening on port ${port}!`))
