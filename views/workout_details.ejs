@@ -16,13 +16,21 @@
     <% } else { %>
 
         <% exercises.forEach(function(exercise) { %>
-            
+    
             <div class="exercise-card">
                 <h3><%= exercise.name %></h3>
                 <p><%= exercise.muscle_group %></p>
                 <p>Sets: <%= exercise.set_count %></p>
                 <p>Reps: <%= exercise.rep_count %></p>
+                
+                <form method="POST"
+                action="/workouts/<%= workout.id %>/exercises/<%= exercise.id %>/delete">
+
+                <button type="submit">Remove Exercise</button>
+            </form>
             </div>
+
+            
 
         <% }) %>
 

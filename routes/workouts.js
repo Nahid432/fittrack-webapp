@@ -131,6 +131,39 @@ router.post("/:workoutId/exercises/:exerciseId/add", requireLogin, function(req,
     })
 })
 
+router.post("/:workoutId/exercises/:exerciseId/delete",
+    requireLogin,
+    function(req, res, next) {
+
+        const workoutId = req.params.workoutId
+        const exerciseId = req.params.exerciseId
+        const userId = req.session.user.id
+
+        //Check that the workout belongs to the logged-in user
+        const workoutQuery =
+            "SELECT id FROM workouts WHERE id = ? AND user_id = ?"
+
+        db.query(workoutQuery, [workoutId, userId], function(err, workouts) {
+            if (err) {
+                return next(err)
+            }
+
+            if (workouts.length === 0) {
+                return res.status(404).send("Workout not found")
+            }
+
+            const deleteQuery = "DELETE FROM workout_exercises WHERE workout_id = ? AND exercise_id = ?"
+            
+            db.query(deleteQuery, [workoutId, exerciseId], function(err) {
+                if (err) {
+                    return next(err)
+                }
+
+                res.redirect("/workouts/" + workoutId)
+            })
+        })
+    }
+)
 router.get("/:id", requireLogin, function(req, res, next) {
 
     const workoutId = req.params.id
@@ -148,7 +181,7 @@ router.get("/:id", requireLogin, function(req, res, next) {
         }
 
         const exerciseQuery = `
-            SELECT exercises.name,
+            SELECT exercises.id, exercises.name,
                    exercises.muscle_group,
                    workout_exercises.set_count,
                    workout_exercises.rep_count
