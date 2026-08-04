@@ -16,12 +16,13 @@ router.get("/login", (req, res) => {
     res.render("login")
 })
 
+//Handle user login by validating credentials against the database
 router.post("/loggedin", function (req,res, next) {
     //retrieve login details
     const username = req.body.username
     const password = req.body.password
 
-  // Find the user in the database
+    //Retrieve the user's id and hashed password using the supplied username
     const sqlQuery = "SELECT id, username, hashed_Password FROM users WHERE username = ?"
 
     db.query(sqlQuery, [username], function (err, user) {
@@ -29,7 +30,7 @@ router.post("/loggedin", function (req,res, next) {
           return next(err)
         }
 
-        //if no matching username was found
+        //If no matching username was found
         if (user.length === 0) {
             return res.send("Incorrect username or password")
         }
@@ -42,6 +43,7 @@ router.post("/loggedin", function (req,res, next) {
                 return next(err)
             }
 
+            //Store the authenticated user's details in the session
             if (passwordMatches) {
                 req.session.user = {
                     id: user[0].id,
@@ -56,6 +58,7 @@ router.post("/loggedin", function (req,res, next) {
     })
 })
 
+//Destroy the current session
 router.get("/logout", function (req, res) {
     req.session.destroy(function(err) {
       if (err) {
@@ -91,7 +94,7 @@ function (req, res, next) {
     const email = req.body.email
     const plainPassword = req.body.password
 
-    //Checks for duplicate user entry
+    //Ensure the username and email address are unique before registration
     const checkUserQuery = "SELECT id FROM users WHERE username = ? OR email = ?"
 
     db.query(checkUserQuery, [username, email], function(err, results) {

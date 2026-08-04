@@ -17,6 +17,7 @@ router.get('/exercises', function (req, res, next) {
            return next(err)
         }
         else {
+            //Return all exercises in JSON format
             res.json(result)
         }
     })

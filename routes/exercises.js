@@ -11,6 +11,7 @@ router.get('/list', function(req,res, next) {
   const name = req.query.exercise_name || ""
   const muscleGroup = req.query.muscle_group || ""
 
+  //Build the SQL query dynamically depending on the selected search filters
   let sqlQuery = "SELECT * FROM exercises WHERE 1 = 1"
 
   const queryValues = []
@@ -27,6 +28,7 @@ router.get('/list', function(req,res, next) {
       queryValues.push(muscleGroup)
   }
 
+  //Execute the query and display the matching exercises
   db.query(sqlQuery, queryValues, function(err, results) {
       if (err) {
           return next(err)

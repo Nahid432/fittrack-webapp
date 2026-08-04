@@ -65,6 +65,7 @@ router.post("/created", requireLogin, function (req, res, next) {
 
 })
 
+//Display all available exercises that can be added to the selected workout
 router.get("/:id/add", requireLogin, function(req, res, next) {
 
     const workoutId = req.params.id
@@ -99,6 +100,7 @@ router.get("/:id/add", requireLogin, function(req, res, next) {
     })
 })
 
+//Add the selected exercise to the workout if it has not already been added
 router.post("/:workoutId/exercises/:exerciseId/add", requireLogin, function(req, res, next) { 
 
     const workoutId = req.params.workoutId
@@ -144,6 +146,7 @@ router.post("/:workoutId/exercises/:exerciseId/add", requireLogin, function(req,
     })
 })
 
+//Remove an exercise from the selected workout
 router.post("/:workoutId/exercises/:exerciseId/delete",
     requireLogin,
     function(req, res, next) {
@@ -177,6 +180,8 @@ router.post("/:workoutId/exercises/:exerciseId/delete",
         })
     }
 )
+
+//Display the exercises belonging to the selected workout
 router.get("/:id", requireLogin, function(req, res, next) {
 
     const workoutId = req.params.id
@@ -218,4 +223,5 @@ router.get("/:id", requireLogin, function(req, res, next) {
     })
 })
 
+//Export the router
 module.exports = router
