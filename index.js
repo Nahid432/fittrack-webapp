@@ -11,6 +11,10 @@ const mysql = require('mysql2')
 const app = express()
 const port = 8000
 
+//base path
+const basePath = process.env.BASE_PATH || ""
+global.basePath = basePath
+
 //Tell Express that we want to use EJS as the templating engine
 app.set('view engine', 'ejs')
 

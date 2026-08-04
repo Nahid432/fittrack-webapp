@@ -7,7 +7,7 @@ const router = express.Router()
 //Middleware to restrict workout pages to logged-in users
 function requireLogin(req, res, next) {
     if (!req.session.user) {
-        return res.redirect("/users/login")
+        return res.redirect(basePath + "users/login")
     }
 
     next()
@@ -59,7 +59,7 @@ router.post("/created", requireLogin, function (req, res, next) {
                 return next(err)
             }
 
-            res.redirect("/workouts")
+            res.redirect(basePath + "/workouts")
         })
       })
 
@@ -138,7 +138,7 @@ router.post("/:workoutId/exercises/:exerciseId/add", requireLogin, function(req,
                     return next(err)
                 }
 
-                res.redirect("/workouts/" + workoutId)
+                res.redirect(basePath + "/workouts/" + workoutId)
             })
         })    
     })
@@ -172,7 +172,7 @@ router.post("/:workoutId/exercises/:exerciseId/delete",
                     return next(err)
                 }
 
-                res.redirect("/workouts/" + workoutId)
+                res.redirect(basePath + "/workouts/" + workoutId)
             })
         })
     }

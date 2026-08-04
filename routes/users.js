@@ -48,7 +48,7 @@ router.post("/loggedin", function (req,res, next) {
                     username: user[0].username
                 }
               
-                return res.redirect("/")
+                return res.redirect(basePath + "/")
             }
 
             res.send("Incorrect username or password")
@@ -59,10 +59,10 @@ router.post("/loggedin", function (req,res, next) {
 router.get("/logout", function (req, res) {
     req.session.destroy(function(err) {
       if (err) {
-          return res.redirect("/")
+          return res.redirect(basePath + "/")
       }
 
-      res.redirect("/")
+      res.redirect(basePath + "/")
     })
 })
 
@@ -81,7 +81,7 @@ function (req, res, next) {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        return res.redirect("/users/register")
+        return res.redirect(basePath + "/users/register")
     }
 
     //Retrieve values submitted through form
@@ -127,7 +127,7 @@ function (req, res, next) {
                 if (err) {
                     return next(err)
                 }
-                return res.redirect("/users/login")
+                return res.redirect(basePath + "/users/login")
             })
         })
     })  
