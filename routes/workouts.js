@@ -7,7 +7,7 @@ const router = express.Router()
 //Middleware to restrict workout pages to logged-in users
 function requireLogin(req, res, next) {
     if (!req.session.user) {
-        return res.redirect(basePath + "users/login")
+        return res.redirect(basePath + "/users/login")
     }
 
     next()
