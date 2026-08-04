@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    <!--Top navigation bar-->
     <header class="top-banner">
         <a class="site-name" href="/">FitTrack</a>
 
@@ -21,20 +22,22 @@
     </header>
 
     <h1>Meal Search</h1>
-
-    <form action="/external/meals">
+    <!--Meal search form-->
+    <form action="/external/meals" method="GET">
 
         <input
             type="text"
             name="search_text"
             value="<%= search %>"
             placeholder="Search for a meal"
+            required
         >
 
-        <button>Search</button>
+        <button type="submit">Search</button>
 
     </form>
 
+    <!--Display search results-->
     <% if(mealData){ %>
 
         <% mealData.forEach(function(meal){ %>

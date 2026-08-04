@@ -6,6 +6,7 @@
   </head>
 
   <body>
+    <!--Top navigation bar-->
     <header class="top-banner">
         <a class="site-name" href="/">FitTrack</a>
 
@@ -30,6 +31,7 @@
 
             <p><%= exercise.muscle_group %></p>
 
+            <!--Form for adding an exercise to the selected workout-->
             <form method="POST" action="/workouts/<%= workout.id %>/exercises/<%= exercise.id %>/add">
 
                 <button type="submit">

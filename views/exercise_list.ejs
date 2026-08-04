@@ -6,6 +6,7 @@
   </head>
 
   <body>
+    <!--Top navigation bar-->
     <header class="top-banner">
         <a class="site-name" href="/">FitTrack</a>
 
@@ -23,13 +24,16 @@
     <p>
       Browse the exercises currently available in FitTrack.
     </p>
-    <!-- Search form -->
+    <!--Exercise search and filtering form -->
     <form method="GET" action="/exercises/list">
-      <label>Search</label>
+
+      <label for="exercise_name">Search by exercise name</label>
       <input type="text" name="exercise_name" value="<%= exerciseName %>"/>
+
+      <label for="muscle_group">Muscle group</label>
       <select name="muscle_group">
         <option value="">All muscles</option>
-        <option value="Chest">Chest</option>
+        <option value="Chest" >Chest</option>
         <option value="Back">Back</option>
         <option value="Legs">Legs</option>
         <option value="Shoulders">Shoulders</option>

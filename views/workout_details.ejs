@@ -6,6 +6,7 @@
   </head>
 
   <body>
+    <!--Top navigation bar-->
     <header class="top-banner">
         <a class="site-name" href="/">FitTrack</a>
 
@@ -18,22 +19,24 @@
             <a href="/users/login">Login</a>
         </nav>
     </header>
+    <!--Display workout information-->
     <h1><%= workout.workout_name %></h1>
     
-
+    <!--Display a message if no exercises have been added-->
     <% if (exercises.length === 0) { %>
 
     <p>No exercises added yet.</p>
 
     <% } else { %>
 
+        <!--Display all exercises assigned to this workout-->
         <% exercises.forEach(function(exercise) { %>
     
             <div class="exercise-card">
                 <h3><%= exercise.name %></h3>
-                <p><%= exercise.muscle_group %></p>
-                <p>Sets: <%= exercise.set_count %></p>
-                <p>Reps: <%= exercise.rep_count %></p>
+                <p><strong>Muscle group:</strong> <%= exercise.muscle_group %></p>
+                <p><strong>Sets:</strong> <%= exercise.set_count %></p>
+                <p><strong>Reps:</strong> <%= exercise.rep_count %></p>
                 
                 <form method="POST"
                 action="/workouts/<%= workout.id %>/exercises/<%= exercise.id %>/delete">

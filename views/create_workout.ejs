@@ -6,6 +6,7 @@
   </head>
 
   <body>
+    <!--Top navigation bar-->
     <header class="top-banner">
         <a class="site-name" href="/">FitTrack</a>
 
@@ -19,17 +20,14 @@
         </nav>
     </header>
     <h1>Create Workout</h1>
-    <!--Form for creating a new workout-->
+    <!--Form for creating a new workout plan-->
     <form method="POST" action="/workouts/created">
 
-      <label>Workout Name</label>
+      <label for="workout_name">Workout Name</label>
 
-      <input type="text"
-             name="workout_name"
-             required
-      >
+      <input id="workout_name" type="text" name="workout_name" required>
 
-      <button>Create Workout</button>
+      <button type="submit">Create Workout</button>
     </form>
   </body>
 </html>

@@ -6,6 +6,7 @@
   </head>
 
   <body>
+    <!--Top navigation bar-->
     <header class="top-banner">
         <a class="site-name" href="/">FitTrack</a>
 
@@ -23,6 +24,7 @@
       FitTrack helps users explore exercises and create personalised workouts.
     </p>
     
+    <!--Display different navigation options depending on login status-->
       <% if (loggedInUser) { %>
           <span>Welcome, <%= loggedInUser.username %></span>
           <a href="/workouts">My Workouts</a>

@@ -6,6 +6,7 @@
   </head>
 
   <body>
+    <!--Top navigation bar-->
     <header class="top-banner">
         <a class="site-name" href="/">FitTrack</a>
 
@@ -30,14 +31,13 @@
 
         <!--Display each workout belonging to the logged-in user-->
         <% workouts.forEach(function(workout) { %>
-            
-            <p>
-                <a href="/workouts/<%= workout.id %>">
-                    <%= workout.workout_name %>
-                </a>
-                
-            </p>
-
+            <div class="workout-card">
+                <h3>
+                    <a href="/workouts/<%= workout.id %>">
+                        <%= workout.workout_name %>
+                    </a>
+                </h3>
+            </div>
         <% }) %>
     <% } %>
 
